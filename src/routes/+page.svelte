@@ -1,2 +1,98 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+    import "./font.css";
+    import { onMount } from "svelte";
+  
+    let terminalDiv;
+  
+    onMount(async () => {
+  
+      let term = null;
+  
+      await import("xterm/css/xterm.css");
+  
+      const { Terminal } = await import("xterm");
+  
+      const { FitAddon } = await import("xterm-addon-fit");
+  
+      const { WebLinksAddon } = await import("xterm-addon-web-links");
+  
+      var websocket = new WebSocket("ws://shell-backend-z3ofho44oa-et.a.run.app");
+  
+      websocket.onopen = function (event) {
+        term = new Terminal ( {
+          cursorBlink: true,
+          screenKeys: true,
+          useStyle: true
+        });
+  
+        if (term) {
+          term.setOption("logLevel", "debug");
+          const fitAddon = new FitAddon();
+          const linksAddon = new WebLinksAddon();
+          term.loadAddon(fitAddon);
+          term.loadAddon(linksAddon);
+          
+          // later try on new flavor
+          term.onKey(keyObj => {
+            websocket.send(keyObj.key);
+          });
+  
+          websocket.onmessage = function(event) {
+            term.write(event.data);
+            fitAddon.fit();
+          };
+  
+          websocket.onclose = function(event) {
+            if (term) {
+              term.write("Session terminated!");
+            }
+          };
+  
+          websocket.onerror = function (event) {
+            if (typeof console.log == "function") {
+              console.log(event);
+            }
+          };
+  
+          term.onTitleChange( function(title) {
+            document.title = title;
+          });
+  
+          term.options = {
+            fontFamily: "VT323-Regular",
+            fontSize: 24,
+          };
+  
+          term.open(terminalDiv);
+          term.focus();
+  
+        }
+      }
+  
+    })
+  
+  
+  </script>
+  
+  <style>
+    :global(body) {
+      margin: 0;
+      background-color: black;
+    }
+  
+    main {
+      background-color: black;
+      margin: 0;
+      height: 100vh;
+    }
+  
+    #xterm {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  
+  <main>
+    <div bind:this={terminalDiv} id="xterm" />
+  </main>
+  
