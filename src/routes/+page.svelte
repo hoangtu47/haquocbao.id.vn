@@ -26,7 +26,6 @@
         });
   
         if (term) {
-          term.setOption("logLevel", "debug");
           const fitAddon = new FitAddon();
           const linksAddon = new WebLinksAddon();
           term.loadAddon(fitAddon);
