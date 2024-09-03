@@ -1,8 +1,10 @@
 <script>
-    import "./font.css";
-    import { onMount } from "svelte";
+  import "./font.css";
+  import { onMount } from "svelte";
   
     let terminalDiv;
+
+    export let title = "hoangtu47's porfolio!";
   
     onMount(async () => {
   
@@ -95,3 +97,7 @@
     <div bind:this={terminalDiv} id="xterm" />
   </main>
   
+<svelte:head>
+  <title>{title}</title>
+</svelte:head>
+
