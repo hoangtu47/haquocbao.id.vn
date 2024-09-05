@@ -32,7 +32,7 @@
           const linksAddon = new WebLinksAddon();
           term.loadAddon(fitAddon);
           term.loadAddon(linksAddon);
-          
+
           // later try on new flavor
           term.onKey(keyObj => {
             websocket.send(keyObj.key);
@@ -66,7 +66,14 @@
   
           term.open(terminalDiv);
           term.focus();
-  
+
+          term.onResize(function(event) {
+            // Send the resize data as a JSON string via WebSocket
+            websocket.send(JSON.stringify({cols: event.cols, rows: event.rows}));
+          })
+
+          window.addEventListener("resize", () => {
+            fitAddon.fit()});
         }
       }
   
