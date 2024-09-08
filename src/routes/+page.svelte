@@ -18,7 +18,7 @@
   
       const { WebLinksAddon } = await import("xterm-addon-web-links");
   
-      var websocket = new WebSocket("wss://shell-backend.mangofield-de3c28fa.southeastasia.azurecontainerapps.io");
+      var websocket = new WebSocket("wss://haquocbao.id.vn");
   
       websocket.onopen = function (event) {
         term = new Terminal ( {
