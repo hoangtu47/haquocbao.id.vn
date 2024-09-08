@@ -28,6 +28,10 @@
         });
   
         if (term) {
+
+          // Display a greeting!
+          websocket.send("./welcome\n")
+
           const fitAddon = new FitAddon();
           const linksAddon = new WebLinksAddon();
           term.loadAddon(fitAddon);
