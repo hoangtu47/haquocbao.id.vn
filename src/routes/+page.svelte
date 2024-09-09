@@ -10,13 +10,13 @@
   
       let term = null;
   
-      await import("xterm/css/xterm.css");
+      await import("@xterm/xterm/css/xterm.css");
   
-      const { Terminal } = await import("xterm");
+      const { Terminal } = await import("@xterm/xterm");
   
-      const { FitAddon } = await import("xterm-addon-fit");
+      const { FitAddon } = await import("@xterm/addon-fit");
   
-      const { WebLinksAddon } = await import("xterm-addon-web-links");
+      const { WebLinksAddon } = await import("@xterm/addon-web-links");
   
       var websocket = new WebSocket("wss://shell-backend.mangofield-de3c28fa.southeastasia.azurecontainerapps.io");
   
@@ -28,23 +28,25 @@
         });
   
         if (term) {
-
-          // Display a greeting!
-          websocket.send("./welcome\n")
-
+          
           const fitAddon = new FitAddon();
           const linksAddon = new WebLinksAddon();
-          term.loadAddon(fitAddon);
-          term.loadAddon(linksAddon);
+          term.loadAddon(new FitAddon());
+          term.loadAddon(new WebLinksAddon());
 
-          // later try on new flavor
+          fitAddon.activate(term)
+          fitAddon.fit()
+          
+          // Display a greeting!
+          websocket.send("./welcome\n")
+          
           term.onKey(keyObj => {
             websocket.send(keyObj.key);
           });
   
           websocket.onmessage = function(event) {
-            term.write(event.data);
             fitAddon.fit();
+            term.write(event.data);
           };
   
           websocket.onclose = function(event) {
