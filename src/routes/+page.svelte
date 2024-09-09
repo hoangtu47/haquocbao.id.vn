@@ -1,5 +1,5 @@
 <script>
-  import "./font.css";
+  // import "./font.css";
   import { onMount } from "svelte";
   
     let terminalDiv;
@@ -75,10 +75,10 @@
             document.title = title;
           });
   
-          term.options = {
-            fontFamily: "VT323-Regular",
-            fontSize: 24,
-          };
+          // term.options = {
+          //   fontFamily: "VT323-Regular",
+          //   fontSize: 24,
+          // };
   
           term.open(terminalDiv);
           term.focus();
