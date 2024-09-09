@@ -28,7 +28,7 @@
           cursorBlink: true,
           screenKeys: true,
           useStyle: true,
-          
+
           fontFamily: "VT323-Regular",
           fontSize: 24
         });
@@ -50,9 +50,8 @@
             websocket.send(JSON.stringify({cols: event.cols, rows: event.rows}));
           })
 
-          window.dispatchEvent(new Event("resize"))
-
           // Display a greeting!
+          fitAddon.fit()
           websocket.send("./welcome\n")
           
           term.onKey(keyObj => {
