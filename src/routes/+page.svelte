@@ -35,8 +35,18 @@
           term.loadAddon(new WebLinksAddon());
 
           fitAddon.activate(term)
-          fitAddon.fit()
           
+          term.onResize(function(event) {
+            // Send the resize data as a JSON string via WebSocket
+            websocket.send(JSON.stringify({cols: event.cols, rows: event.rows}));
+          })
+
+          window.addEventListener("resize", () => {
+            fitAddon.fit()}
+          )
+          
+          window.dispatchEvent(new Event("resize"))
+
           // Display a greeting!
           websocket.send("./welcome\n")
           
@@ -72,14 +82,6 @@
   
           term.open(terminalDiv);
           term.focus();
-
-          term.onResize(function(event) {
-            // Send the resize data as a JSON string via WebSocket
-            websocket.send(JSON.stringify({cols: event.cols, rows: event.rows}));
-          })
-
-          window.addEventListener("resize", () => {
-            fitAddon.fit()});
         }
       }
   
