@@ -1,5 +1,8 @@
 <script>
-  // import "./font.css";
+  import "./font.css";
+
+  import xtermWebFont from "@liveconfig/xterm-webfont";
+
   import { onMount } from "svelte";
   
     let terminalDiv;
@@ -33,6 +36,7 @@
           const linksAddon = new WebLinksAddon();
           term.loadAddon(fitAddon);
           term.loadAddon(linksAddon);
+          term.loadAddon(new xtermWebFont())
 
           fitAddon.activate(term)
           
@@ -75,12 +79,13 @@
             document.title = title;
           });
   
-          // term.options = {
-          //   fontFamily: "VT323-Regular",
-          //   fontSize: 24,
-          // };
+          term.options = {
+            fontFamily: "VT323-Regular",
+            fontSize: 24,
+          };
   
-          term.open(terminalDiv);
+          term.loadWebfontAndOpen(terminalDiv);
+
           term.focus();
         }
       }
