@@ -31,20 +31,20 @@
           
           const fitAddon = new FitAddon();
           const linksAddon = new WebLinksAddon();
-          term.loadAddon(new FitAddon());
-          term.loadAddon(new WebLinksAddon());
+          term.loadAddon(fitAddon);
+          term.loadAddon(linksAddon);
 
           fitAddon.activate(term)
           
+          window.addEventListener("resize", () => {
+            fitAddon.fit()}
+          )
+
           term.onResize(function(event) {
             // Send the resize data as a JSON string via WebSocket
             websocket.send(JSON.stringify({cols: event.cols, rows: event.rows}));
           })
 
-          window.addEventListener("resize", () => {
-            fitAddon.fit()}
-          )
-          
           window.dispatchEvent(new Event("resize"))
 
           // Display a greeting!
