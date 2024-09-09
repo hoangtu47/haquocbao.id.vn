@@ -27,7 +27,10 @@
         term = new Terminal ( {
           cursorBlink: true,
           screenKeys: true,
-          useStyle: true
+          useStyle: true,
+          
+          fontFamily: "VT323-Regular",
+          fontSize: 24
         });
   
         if (term) {
@@ -37,8 +40,6 @@
           term.loadAddon(fitAddon);
           term.loadAddon(linksAddon);
           term.loadAddon(new xtermWebFont())
-
-          fitAddon.activate(term)
           
           window.addEventListener("resize", () => {
             fitAddon.fit()}
@@ -78,11 +79,6 @@
           term.onTitleChange( function(title) {
             document.title = title;
           });
-  
-          term.options = {
-            fontFamily: "VT323-Regular",
-            fontSize: 24,
-          };
   
           term.loadWebfontAndOpen(terminalDiv);
 
