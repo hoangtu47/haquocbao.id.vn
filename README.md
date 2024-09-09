@@ -1,12 +1,12 @@
-# haquocbao.id.vn 🌐
+# [haquocbao.id.vn](https://haquocbao.id.vn) 🌐
 
 **My porfolio!**
 
 This repository contains **frontend** component's source code. _Backend_ component's source code should be found [here](https://github.com/hoangtu47/shell-backend.git).
 
+![image](https://github.com/user-attachments/assets/92f5c6bf-7b5f-4d27-8d9a-b62e080946fa)
+![image](https://github.com/user-attachments/assets/1aab3e2a-72b8-4187-918f-68ee12356866)
 
-
-// insert picture
 
 # Structure
 
