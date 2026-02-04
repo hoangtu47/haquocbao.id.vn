@@ -60,7 +60,7 @@ pipeline {
                 githubNotify description: 'Step running...', status: 'PENDING', context: 'Docker Push', credentialsId: SCM_CREDENTIALS_ID, account: GIT_OWNER, repo: GIT_REPO, sha: GIT_COMMIT
                 container('docker-cli') {
                     withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-                        sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'wri
+                        sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
                         sh 'docker push $REGISTRY:$IMAGE_TAG'
                         sh 'docker push $REGISTRY:latest'
                     }
