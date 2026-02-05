@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: haquocbao.id.vn-ingress
+  namespace: haquocbao-domain
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+spec:
+  ingressClassName: traefik
+  tls:
+  - hosts:
+    - haquocbao.id.vn
+    secretName: haquocbao.id.vn-tls
+  rules:
+  - host: haquocbao.id.vn
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: haquocbao.id.vn-service
+            port:
+              number: 80

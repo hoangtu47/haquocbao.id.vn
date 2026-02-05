@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: haquocbao.id.vn
+  namespace: haquocbao-domain
+  labels:
+    app: haquocbao.id.vn
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: haquocbao.id.vn
+  template:
+    metadata:
+      labels:
+        app: haquocbao.id.vn
+    spec:
+      containers:
+      - name: haquocbao.id.vn
+        image: 21120414/haquocbao.id.vn:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 10
