@@ -27,7 +27,9 @@ FROM node:22-alpine
 # node-pty needs python/make/g++ to rebuild if npm install runs again, 
 # but here we copy node_modules. 
 # However, node-pty runtime might need shared libs.
-RUN apk add --no-cache python3 make g++
+# However, node-pty runtime might need shared libs.
+# 'hello' binary needs 'infocmp' (ncurses) to verify terminal capabilities if terminfo is missing/incomplete.
+RUN apk add --no-cache python3 make g++ ncurses
 
 WORKDIR /app
 
