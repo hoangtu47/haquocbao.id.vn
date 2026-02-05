@@ -27,11 +27,14 @@ wss.on('connection', ws => {
         env: {
             PATH: '/home/guest/bin',
             TERM: 'xterm-color',
-            HOME: '/home/guest'
+            HOME: '/home/guest',
+            USER: 'guest',
+            PS1: 'guest@haquocbao.id.vn:~$ '
         },
         cols: 100,
         rows: 100,
-        uid: 1001, // guest user new UID
+        uid: 1001,
+        gid: 1001,
         // Ideally we should look this up or use the name, but node-pty often takes uid/gid.
         // However, node-pty might run as the user running the process. 
         // Since the container runs as root (default), we need to downgrade permissions here if node-pty supports it, OR run the whole process as guest?

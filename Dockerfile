@@ -59,7 +59,9 @@ RUN ln -s /bin/ls /home/guest/bin/ls && \
     ln -s /usr/bin/whoami /home/guest/bin/whoami && \
     ln -s /bin/cat /home/guest/bin/cat && \
     ln -s /usr/bin/clear /home/guest/bin/clear && \
-    ln -s /bin/echo /home/guest/bin/echo
+    ln -s /bin/echo /home/guest/bin/echo && \
+    ln -s /usr/bin/infocmp /home/guest/bin/infocmp && \
+    ln -s /usr/bin/tput /home/guest/bin/tput
 
 # Copy terminal UI executables to guest's home
 COPY --from=builder /app/static/terminal-UI/hello /home/guest/bin/
