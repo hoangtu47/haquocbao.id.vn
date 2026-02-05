@@ -42,14 +42,15 @@ COPY --from=builder /app/server.js .
 # Install bash and shadow (for useradd)
 RUN apk add --no-cache bash shadow
 
-# Create a new user 'guest' with restricted shell, forcing UID 1000
-RUN useradd -m -u 1000 -s /bin/rbash guest
+# Link restricted bash (must exist before useradd uses it)
+RUN ln -s /bin/bash /bin/rbash
+
+# Delete existing guest user (uid 405) to avoid conflict, and create new guest with UID 1001 (to avoid node's 1000)
+RUN userdel guest || true && \
+    useradd -m -u 1001 -s /bin/rbash guest
 
 # Create a directory for allowed commands
 RUN mkdir -p /home/guest/bin
-
-# Link restricted bash
-RUN ln -s /bin/bash /bin/rbash
 
 # Allowed commands (Whitelisting directly into user's bin folder to be effective with restricted PATH)
 # We will set PATH to /home/guest/bin, so only symlinks here will be executable
