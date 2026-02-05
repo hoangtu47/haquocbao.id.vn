@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: haquocbao.id.vn
+  name: haquocbao-fe
   namespace: haquocbao-domain
   labels:
-    app: haquocbao.id.vn
+    app: haquocbao-fe
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: haquocbao.id.vn
+      app: haquocbao-fe
   template:
     metadata:
       labels:
-        app: haquocbao.id.vn
+        app: haquocbao-fe
     spec:
       containers:
       - name: haquocbao.id.vn

@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: haquocbao.id.vn-service
+  name: haquocbao-fe-service
   namespace: haquocbao-domain
 spec:
   selector:
-    app: haquocbao.id.vn
+    app: haquocbao-fe
   ports:
     - protocol: TCP
       port: 80
