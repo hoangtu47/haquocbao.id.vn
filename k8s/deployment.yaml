@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: haquocbao-fe-container
-        image: 21120414/haquocbao.id.vn:15
+        image: 21120414/haquocbao.id.vn:17
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
