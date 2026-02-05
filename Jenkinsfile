@@ -41,6 +41,7 @@ pipeline {
                     steps {
                         githubNotify description: 'Step running...', status: 'PENDING', context: 'Install & Build', credentialsId: SCM_CREDENTIALS_ID, account: GIT_OWNER, repo: GIT_REPO, sha: GIT_COMMIT
                         container('nodejs') {
+                            sh 'apt-get update && apt-get install -y python3 make g++'
                             sh 'npm ci'
                             sh 'npm run build'
                         }
