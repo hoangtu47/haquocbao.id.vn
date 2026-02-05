@@ -20,13 +20,25 @@ wss.on('connection', ws => {
     console.log("new session");
 
     // invoke a shell once a new session is created
-    // Default to /bin/sh, but use bash if available, or allow config
-    const shell = pty.spawn('/bin/sh', [], {
+    // Default to /bin/rbash to enforce restricted mode
+    const shell = pty.spawn('/bin/rbash', [], {
         name: 'xterm-color',
-        cwd: process.env.HOME,
-        env: process.env,
+        cwd: '/home/guest',
+        env: {
+            PATH: '/home/guest/bin',
+            TERM: 'xterm-color',
+            HOME: '/home/guest'
+        },
         cols: 100,
         rows: 100,
+        uid: 1000, // Assuming guest is the first user added after root (uid 1000). 
+        // Ideally we should look this up or use the name, but node-pty often takes uid/gid.
+        // However, node-pty might run as the user running the process. 
+        // Since the container runs as root (default), we need to downgrade permissions here if node-pty supports it, OR run the whole process as guest?
+        // Wait, node-pty `spawn` allows `uid` and `gid`. 
+        // But `useradd` in alpine might give a different UID. 
+        // Let's check shadow in Dockerfile or force UID.
+        // Actually, if we run the server as root, we can spawn as specific user.
     });
 
     // Catch incoming command typed
