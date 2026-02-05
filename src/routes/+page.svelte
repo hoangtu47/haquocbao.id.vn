@@ -20,7 +20,9 @@
   
       const { WebLinksAddon } = await import("@xterm/addon-web-links");
   
-      var websocket = new WebSocket("wss://shell-backend.mangofield-de3c28fa.southeastasia.azurecontainerapps.io");
+      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      const host = window.location.host;
+      var websocket = new WebSocket(`${protocol}//${host}`);
   
       websocket.onopen = function (event) {
         term = new Terminal ( {
